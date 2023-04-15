@@ -2,35 +2,31 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
-        try (Connection connection = Util.getConnecton();
-             ResultSet rs = connection.getMetaData().getTables(null, null, "userstable", null)) {
-            if (!rs.next()) {
-                PreparedStatement statement = connection.prepareStatement("CREATE TABLE userstable (id bigint AUTO_INCREMENT, name varchar(20), lastName varchar(20), age tinyint, primary key (id))");
-                statement.execute();
-            }
+        try (Connection connection = Util.getConnecton()) {
+            PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS userstable (id bigint AUTO_INCREMENT, name varchar(20), lastName varchar(20), age tinyint, primary key (id))");
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void dropUsersTable() {
-        try (Connection connection = Util.getConnecton();
-             ResultSet rs = connection.getMetaData().getTables(null, null, "userstable", null)) {
-            if (rs.next()) {
-                PreparedStatement statement = connection.prepareStatement("DROP TABLE userstable" );
-                statement.execute();
-            }
+        try (Connection connection = Util.getConnecton()){
+            PreparedStatement statement = connection.prepareStatement("DROP TABLE IF EXISTS userstable" );
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
