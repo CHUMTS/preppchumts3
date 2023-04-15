@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 /.idea
 preppshumtstask3.iml
+src/main/resources/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
