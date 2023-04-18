@@ -20,6 +20,7 @@ public class UserDaoHibernateImpl implements UserDao {
             sessionVar.beginTransaction();
             Query query = sessionVar.createNativeQuery("CREATE TABLE IF NOT EXISTS userstable (id bigint AUTO_INCREMENT, name varchar(20), lastName varchar(20), age tinyint, primary key (id))");
             query.executeUpdate();
+            sessionVar.getTransaction().commit();
         }
     }
 
@@ -30,6 +31,7 @@ public class UserDaoHibernateImpl implements UserDao {
             sessionVar.beginTransaction();
             Query query = sessionVar.createNativeQuery("DROP TABLE IF EXISTS userstable");
             query.executeUpdate();
+            sessionVar.getTransaction().commit();
         }
     }
 
