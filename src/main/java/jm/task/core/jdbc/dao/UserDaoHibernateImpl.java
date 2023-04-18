@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private Session sessionVar = null;
+    private Session sessionVar = null;    // Для rollback в catch
 
     public UserDaoHibernateImpl() {
 
