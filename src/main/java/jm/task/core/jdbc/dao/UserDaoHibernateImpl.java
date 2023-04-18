@@ -16,22 +16,20 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void createUsersTable() {
         try (Session session = Util.getSessionFactory().openSession()) {
-            sessionVar = session;
-            sessionVar.beginTransaction();
-            Query query = sessionVar.createNativeQuery("CREATE TABLE IF NOT EXISTS userstable (id bigint AUTO_INCREMENT, name varchar(20), lastName varchar(20), age tinyint, primary key (id))");
+            session.beginTransaction();
+            Query query = session.createNativeQuery("CREATE TABLE IF NOT EXISTS userstable (id bigint AUTO_INCREMENT, name varchar(20), lastName varchar(20), age tinyint, primary key (id))");
             query.executeUpdate();
-            sessionVar.getTransaction().commit();
+            session.getTransaction().commit();
         }
     }
 
     @Override
     public void dropUsersTable() {
         try (Session session = Util.getSessionFactory().openSession()) {
-            sessionVar = session;
-            sessionVar.beginTransaction();
-            Query query = sessionVar.createNativeQuery("DROP TABLE IF EXISTS userstable");
+            session.beginTransaction();
+            Query query = session.createNativeQuery("DROP TABLE IF EXISTS userstable");
             query.executeUpdate();
-            sessionVar.getTransaction().commit();
+            session.getTransaction().commit();
         }
     }
 
